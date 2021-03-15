@@ -26,7 +26,7 @@ public class JavaSpringClientTest {
 //                new ParameterizedTypeReference<List<Student>>() {
 //                });
 //        System.out.println(exchange.getBody());
-        ResponseEntity<PageableResponse<Student>> exchange = restTemplate.exchange("/?sort=name,desc", HttpMethod.GET, null,
+        ResponseEntity<PageableResponse<Student>> exchange = restTemplate.exchange("/?sort=name,asc&sort=id,desc", HttpMethod.GET, null,
                 new ParameterizedTypeReference<PageableResponse<Student>>() {
                 });
         System.out.println(exchange);

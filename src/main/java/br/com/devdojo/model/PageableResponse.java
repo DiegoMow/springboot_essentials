@@ -1,7 +1,9 @@
 package br.com.devdojo.model;
 
+import br.com.devdojo.util.CustomSortDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,10 +23,10 @@ public class PageableResponse<T> extends PageImpl<T> {
                             @JsonProperty("pageable") JsonNode pageable,
                             @JsonProperty("last") boolean last,
                             @JsonProperty("totalPages") int totalPages,
-                            @JsonProperty("sort") JsonNode sort,
+                            @JsonProperty("sort") @JsonDeserialize(using = CustomSortDeserializer.class) Sort sort,
                             @JsonProperty("first") boolean first,
                             @JsonProperty("numberOfElements") int numberOfElements) {
-        super(content, PageRequest.of(page,size, Sort.by("name").ascending()), totalElements);
+        super(content, PageRequest.of(page, size, sort), totalElements);
     }
 
     public PageableResponse(){
